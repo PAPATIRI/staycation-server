@@ -1,3 +1,5 @@
+const Category = require("../models/Category");
+
 module.exports = {
   viewDashboard: (req, res) => {
     res.render("admin/dashboard/view_dashboard");
@@ -13,5 +15,11 @@ module.exports = {
   },
   viewBooking: (req, res) => {
     res.render("admin/booking/view_booking");
+  },
+  addCategory: async (req, res) => {
+    const { name } = req.body;
+    console.log(name);
+    await Category.create({ name });
+    res.redirect("/admin/category");
   },
 };
