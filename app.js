@@ -12,6 +12,8 @@ const options = {
   socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
   family: 4, // Use IPv4, skip trying IPv6
 };
+//* method override to update delete data
+const methodOverride = require("method-override");
 
 mongoose.connect("mongodb://localhost:27017/Staycation", options);
 
@@ -36,7 +38,9 @@ app.use(
   "/sb-admin-2",
   express.static(path.join(__dirname, "node_modules/startbootstrap-sb-admin-2"))
 );
-
+//* override method use
+app.use(methodOverride("_method"));
+// router
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 //* use route admin
