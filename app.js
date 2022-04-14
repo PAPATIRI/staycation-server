@@ -14,6 +14,9 @@ const options = {
 };
 //* method override to update delete data
 const methodOverride = require("method-override");
+//* express session
+const session = require("express-session");
+const flash = require("connect-flash"); //* flash alert
 
 mongoose.connect("mongodb://localhost:27017/Staycation", options);
 
@@ -40,6 +43,18 @@ app.use(
 );
 //* override method use
 app.use(methodOverride("_method"));
+//* session use
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 },
+  })
+);
+//* flash use
+app.use(flash());
+
 // router
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
